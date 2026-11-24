@@ -1,0 +1,45 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local database and collected email data
+whiskey.db
+*.sqlite
+*.sqlite3
+samples/*.eml
+
+# Generated reports
+reports/*.md
+
+# Environment and secrets
+.env
+.env.*
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
+
+# Local development and maintenance scripts
+/add_domain_extraction.py
+/add_relationship_assessment.py
+/cleanup_test.py
+/inspect_db.py
+/inspect_domain_intel.py
+/inspect_email.py
+/inspect_patterns.py
+/inspect_urls.py
+/update_analyzer.py
+/update_database_logic.py
+/update_domain_report.py
+/verify_database.py
+/main.py
