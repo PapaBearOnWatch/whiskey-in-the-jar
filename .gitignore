@@ -43,3 +43,8 @@ Thumbs.db
 /update_domain_report.py
 /verify_database.py
 /main.py
+
+# Desktop build artifacts
+build/
+dist/
+
