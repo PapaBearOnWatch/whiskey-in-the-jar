@@ -1,15 +1,32 @@
 import sqlite3
+from contextlib import contextmanager
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATABASE_PATH = PROJECT_ROOT / "whiskey.db"
 
+_active_database_path = DATABASE_PATH
 
+
+def set_database_path(path):
+    global _active_database_path
+    _active_database_path = Path(path)
+
+
+@contextmanager
 def get_connection():
-    connection = sqlite3.connect(DATABASE_PATH)
+    connection = sqlite3.connect(_active_database_path)
     connection.row_factory = sqlite3.Row
     connection.execute("PRAGMA foreign_keys = ON")
-    return connection
+
+    try:
+        yield connection
+        connection.commit()
+    except Exception:
+        connection.rollback()
+        raise
+    finally:
+        connection.close()
 
 
 def initialize_database():
@@ -78,7 +95,7 @@ def initialize_database():
         """)
 
     print("Whiskey in the Jar database initialized.")
-    print(f"Database location: {DATABASE_PATH}")
+    print(f"Database location: {_active_database_path}")
 
 
 if __name__ == "__main__":
